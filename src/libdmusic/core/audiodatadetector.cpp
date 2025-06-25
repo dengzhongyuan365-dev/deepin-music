@@ -166,7 +166,6 @@ void AudioDataDetector::run()
     QVector<float> curData;
 
     while (read_frame(pFormatCtx, packet) >= 0) {
-        //stop detector
         if (m_stopFlag && curData.size() > 100) {
             packet_unref(packet);
             frame_free(&frame);
@@ -179,15 +178,14 @@ void AudioDataDetector::run()
             m_curHash.clear();
             return;
         }
-
+        
         if (packet->stream_index == audio_stream_index) {
             int state;
             state = codec_send_packet(pCodecCtx, packet);
-            packet_unref(packet);
             if (state != 0) {
                 continue;
             }
-
+            
             state = codec_receive_frame(pCodecCtx, frame);
             if (state == 0) {
 
@@ -195,9 +193,8 @@ void AudioDataDetector::run()
                 if (path.endsWith(".ape") || path.endsWith(".APE")) {
                     for (int i = 0; (i + 1) < frame->linesize[0]; i++) {
                         auto  valDate = ((ptr[i]) << 16 | (ptr[i + 1]));
-                        //curData.append((float)valDate + qrand());
                         curData.append(static_cast<float>(valDate) + QRandomGenerator::global()->generate());
-                    }
+                }
                 } else {
                     for (int i = 0; (i + 1) < frame->linesize[0]; i += 1024) {
                         auto  valDate = ((ptr[i]) << 16 | (ptr[i + 1]));
@@ -206,8 +203,10 @@ void AudioDataDetector::run()
                 }
             }
         }
-    }
 
+         packet_unref(packet);
+    }
+    
     packet_unref(packet);
     frame_free(&frame);
     codec_close(pCodecCtx);
@@ -230,7 +229,7 @@ void AudioDataDetector::onBufferDetector(const QString &path, const QString &has
     }
     m_curPath = path;
     m_curHash = hash;
-    if (!queryCacheExisted(hash) && DmGlobal::playbackEngineType() == 1) { //查询到本地无缓存信息
+    if (/*!queryCacheExisted(hash) && */DmGlobal::playbackEngineType() == 1) { //查询到本地无缓存信息
         qCInfo(dmMusic) << "No cache found for hash:" << hash << "starting audio data detection thread";
         start();
     } else {

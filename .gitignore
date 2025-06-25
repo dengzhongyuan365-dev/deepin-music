@@ -11,3 +11,6 @@
 build/
 dist/
 .vscode
+linglong/
+*.ts
+obj-x86_64-linux-gnu/
