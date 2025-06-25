@@ -221,7 +221,7 @@ void VlcPlayer::setMediaMeta(MediaMeta meta)
     m_qvplayer->open(m_qvmedia);
     m_qvplayer->setCurMeta(meta);
     emit metaChanged();
-    malloc_trim(0);
+    //malloc_trim(0);
 }
 
 void VlcPlayer::setFadeInOutFactor(double fadeInOutFactor)

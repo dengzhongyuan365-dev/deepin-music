@@ -508,7 +508,7 @@ FloatingPanel {
 
             //无歌曲不显示波形图
             pointList = []
-            waveform.onAudioDataChanged()
+            waveform.onAudioDataChanged(pointList)
 
             return
         }
@@ -539,11 +539,13 @@ FloatingPanel {
         updatePlayControlBtnStatus()
     }
     function audioBufferChange(buffer,hash) {
-        //console.log("toolbar audioBufferChange:...........")
-        pointList = null;
-        pointList = []
-        pointList = buffer
-        waveform.onAudioDataChanged()
+        console.warn("toolbar audioBufferChange: buffer.length =", buffer ? buffer.length : "undefined")
+        pointList = []  // 先清空
+        pointList = buffer  // 设置新数据
+        console.warn("toolbar audioBufferChange: pointList.length =", pointList ? pointList.length : "undefined")
+        
+        // 确保数据设置后再通知波形更新，直接传递 pointList
+        waveform.onAudioDataChanged(pointList)
         gc();
     }
     function onDeleteOneMeta(playlistHashs, hash) {
