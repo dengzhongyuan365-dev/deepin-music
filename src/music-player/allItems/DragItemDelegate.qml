@@ -17,25 +17,25 @@ Rectangle {
     antialiasing: true
     smooth: true
 
-    Image {
-        id: img
-        anchors.centerIn: parent
-        width: parent.width - 4 //减掉4个像素显示边框
-        height: parent.height - 4
-        visible: false
+    // Image {
+    //     id: img
+    //     anchors.centerIn: parent
+    //     width: parent.width - 4 //减掉4个像素显示边框
+    //     height: parent.height - 4
+    //     visible: false
 
-        source: "file:///" + url
-        fillMode: Image.PreserveAspectFit
-    }
-    Rectangle {
-        id: mask
-        anchors.fill: img
-        radius: 5
-        visible: false
-    }
-    OpacityMask {
-        anchors.fill: img
-        source: img
-        maskSource: mask
-    }
+    //     source: "file:///" + url
+    //     fillMode: Image.PreserveAspectFit
+    // }
+    // Rectangle {
+    //     id: mask
+    //     anchors.fill: img
+    //     radius: 5
+    //     visible: false
+    // }
+    // OpacityMask {
+    //     anchors.fill: img
+    //     source: img
+    //     maskSource: mask
+    // }
 }

@@ -36,11 +36,11 @@ ItemDelegate{
 
     Keys.onReturnPressed: {
         Presenter.playPlaylist(delegateListHash, hash);
-        imagecell.setplayActionButtonIcon("list_pussed");
+        // imagecell.setplayActionButtonIcon("list_pussed");
     }
     Keys.onEnterPressed: {
         Presenter.playPlaylist(delegateListHash, hash);
-        imagecell.setplayActionButtonIcon("list_pussed");
+        // imagecell.setplayActionButtonIcon("list_pussed");
     }
 
     MouseArea {
@@ -128,7 +128,7 @@ ItemDelegate{
         }
         onDoubleClicked: {
             Presenter.playPlaylist(delegateListHash, hash);
-            imagecell.setplayActionButtonIcon("list_pussed");
+            // imagecell.setplayActionButtonIcon("list_pussed");
         }
     }
     Component {
@@ -225,15 +225,15 @@ ItemDelegate{
                 anchors.verticalCenter: columnMusic.verticalCenter
                 spacing: 10
                 leftPadding: 10
-                ImageCell {
-                    id: imagecell
-                    source: "file:///" + coverUrl
-                    pageHash: delegateListHash
-                    isCurPlay: (globalVariant.curPlayingHash === hash) ? true : false
-                    isCurHover: rootRectangle.hovered
-                    curMediaData: model
-                    width: 40; height: 40
-                }
+                // ImageCell {
+                //     id: imagecell
+                //     source: "file:///" + coverUrl
+                //     pageHash: delegateListHash
+                //     isCurPlay: (globalVariant.curPlayingHash === hash) ? true : false
+                //     isCurHover: rootRectangle.hovered
+                //     curMediaData: model
+                //     width: 40; height: 40
+                // }
                 Label {
                     id: musicNameLabel;
                     width: rootRectangle.hovered || buttonsLoader.visible ? columnMusic.width - 130:
@@ -241,10 +241,10 @@ ItemDelegate{
                     height: 17
                     elide: Text.ElideRight
                     text: title
-                    anchors.verticalCenter: imagecell.verticalCenter
+                    // anchors.verticalCenter: imagecell.verticalCenter
                     palette.text: DTK.themeType === ApplicationHelper.DarkType ? "#B2F7F7F7" : "#000000"
-                    color: checked ? palette.highlightedText :
-                                     (imagecell.isCurPlay ? palette.highlight : palette.text)
+                    // color: checked ? palette.highlightedText :
+                    //                  (imagecell.isCurPlay ? palette.highlight : palette.text)
                     font: DTK.fontManager.t7
                 }
                 Loader {
@@ -315,7 +315,7 @@ ItemDelegate{
     }
 
     onHoveredChanged: {
-        imagecell.itemHoveredChanged(rootRectangle.hovered);
+        // imagecell.itemHoveredChanged(rootRectangle.hovered);
     }
 
     Rectangle {

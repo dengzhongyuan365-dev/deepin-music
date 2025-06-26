@@ -70,9 +70,9 @@ Rectangle{
                 height: 426
                 color: "#00000000"
                 anchors.centerIn: parent
-                ShaderView {
-                    id: shaderView
-                }
+                // ShaderView {
+                //     id: shaderView
+                // }
             }
         }
 
@@ -261,28 +261,28 @@ Rectangle{
 
     function isShowShader(shaderStatus) {
         if(shaderStatus === ShaderEffect.Error) {
-            shaderView.stackView.clear();
-            shaderView.stackView.push(shaderView.taskMap[5]);
+            // shaderView.stackView.clear();
+            // shaderView.stackView.push(shaderView.taskMap[5]);
         }
     }
 
     Component.onCompleted: {
         Presenter.metaChanged.connect(metaChange)
         Presenter.positionChanged.connect(positionChange)
-        shaderView.sigShaderStatusChange.connect(isShowShader)
+        // shaderView.sigShaderStatusChange.connect(isShowShader)
         metaChange()
     }
 
     Component.onDestruction: {
-        shaderView.stackView.clear();
+        // shaderView.stackView.clear();
     }
 
     function switchShader() {
-        if(shaderView.currentItem >= 4)
-            shaderView.currentItem = -1;
-        shaderView.currentItem += 1;
-        shaderView.stackView.clear();
-        shaderView.stackView.push(shaderView.taskMap[shaderView.currentItem]);
+        // if(shaderView.currentItem >= 4)
+        //     shaderView.currentItem = -1;
+        // shaderView.currentItem += 1;
+        // shaderView.stackView.clear();
+        // shaderView.stackView.push(shaderView.taskMap[shaderView.currentItem]);
     }
 
     onVisibleChanged: {

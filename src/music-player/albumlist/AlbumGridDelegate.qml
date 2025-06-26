@@ -65,7 +65,7 @@ Rectangle {
             contentItem: RoundedImage {
                 id: backgroundImage
                 backgroundWidth: 168; backgroundHeight: 168
-                backgroundImageUrl: "file:///" + coverUrl
+                // backgroundImageUrl: "file:///" + coverUrl
                 isCurHover: albumItem.hovered
                 isCurPlay:activeMeta
 

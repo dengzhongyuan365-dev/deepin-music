@@ -44,7 +44,7 @@ ItemDelegate{
             if(globalVariant.curPlayingHash !== hash)
                 Presenter.setActivateMeta(hash)
             Presenter.play()
-            imagecell.setplayActionButtonIcon("list_pussed");
+            //imagecell.setplayActionButtonIcon("list_pussed");
         }
         onPressed: {
             if (mouse.button ===  Qt.LeftButton) {
@@ -174,15 +174,31 @@ ItemDelegate{
             spacing: 10
             leftPadding: 10
             anchors.centerIn: parent
-            ImageCell {
+            // ImageCell {
+            //     id: imagecell
+            //     width: 40; height: 40
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     source: "file:///" + coverUrl
+            //     pageHash: "play"
+            //     isCurPlay: (globalVariant.curPlayingHash === hash) ? true : false
+            //     isCurHover: rootRectangle.hovered
+            //     curMediaData: model
+            // }
+            
+            // 用灰色矩形替代ImageCell
+            Rectangle {
                 id: imagecell
                 width: 40; height: 40
                 anchors.verticalCenter: parent.verticalCenter
-                source: "file:///" + coverUrl
-                pageHash: "play"
-                isCurPlay: (globalVariant.curPlayingHash === hash) ? true : false
-                isCurHover: rootRectangle.hovered
-                curMediaData: model
+                color: "#e0e0e0"
+                radius: 3
+                property bool isCurPlay: (globalVariant.curPlayingHash === hash) ? true : false
+                property bool isCurHover: rootRectangle.hovered
+                property var curMediaData: model
+                
+                function itemHoveredChanged(hovered) {
+                    // 空函数，保持兼容性
+                }
             }
             Rectangle {
                 id: musicInfoRect

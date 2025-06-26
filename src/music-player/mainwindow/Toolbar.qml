@@ -81,26 +81,26 @@ FloatingPanel {
             color: songTitle.length === 0 ? "#d7d7d7" : "transparent"
             enabled: songTitle.length === 0 ? false : true
 
-            Image {
-                id: img
-                width: songTitle.length === 0 ? 24 : parent.width
-                height: songTitle.length === 0 ? 24 : parent.height
-                anchors.centerIn: parent
-                source: mediaData ===  undefined || mediaData.localPath.length === 0 ? "qrc:/dsg/img/no_music.svg" : imgPath
-                visible: songTitle.length === 0 ? true : false
-            }
+            // Image {
+            //     id: img
+            //     width: songTitle.length === 0 ? 24 : parent.width
+            //     height: songTitle.length === 0 ? 24 : parent.height
+            //     anchors.centerIn: parent
+            //     source: mediaData ===  undefined || mediaData.localPath.length === 0 ? "qrc:/dsg/img/no_music.svg" : imgPath
+            //     visible: songTitle.length === 0 ? true : false
+            // }
             Rectangle {
                 id: mask
                 anchors.fill: parent
                 radius: 8
                 visible: songTitle.length === 0 ? false : true
             }
-            OpacityMask {
-                anchors.fill: parent
-                source: img
-                maskSource: mask
-                visible: songTitle.length === 0 ? false : true
-            }
+            // OpacityMask {
+            //     anchors.fill: parent
+            //     source: img
+            //     maskSource: mask
+            //     visible: songTitle.length === 0 ? false : true
+            // }
 
             // border
             Rectangle {
@@ -317,13 +317,13 @@ FloatingPanel {
             color: "transparent"
             enabled: songTitle.length === 0 ? false : true
 
-            WaveformRect {
-                id: waveform
-                width: parent.width
-                height: parent.height
-                totalSecs: minute * 60 + second
-                visible: songTitle.length === 0 ? false : true
-            }
+            // WaveformRect {
+            //     id: waveform
+            //     width: parent.width
+            //     height: parent.height
+            //     totalSecs: minute * 60 + second
+            //     visible: songTitle.length === 0 ? false : true
+            // }
         }
         Rectangle {
             id: rightAreaRect
@@ -499,7 +499,7 @@ FloatingPanel {
         mediaData = meta
         songTitle = meta["title"]
         artistStr = meta["artist"]
-        imgPath = "file:///" + meta["coverUrl"]
+        // imgPath = "file:///" + meta["coverUrl"]
         favorite = meta.favourite
 
         if (songTitle.length === 0) {
@@ -508,7 +508,7 @@ FloatingPanel {
 
             //无歌曲不显示波形图
             pointList = []
-            waveform.onAudioDataChanged(pointList)
+            waveform.onAudioDataChanged()
 
             return
         }
@@ -539,13 +539,11 @@ FloatingPanel {
         updatePlayControlBtnStatus()
     }
     function audioBufferChange(buffer,hash) {
-        console.warn("toolbar audioBufferChange: buffer.length =", buffer ? buffer.length : "undefined")
-        pointList = []  // 先清空
-        pointList = buffer  // 设置新数据
-        console.warn("toolbar audioBufferChange: pointList.length =", pointList ? pointList.length : "undefined")
-        
-        // 确保数据设置后再通知波形更新，直接传递 pointList
-        waveform.onAudioDataChanged(pointList)
+        //console.log("toolbar audioBufferChange:...........")
+        pointList = null;
+        pointList = []
+        pointList = buffer
+        waveform.onAudioDataChanged()
         gc();
     }
     function onDeleteOneMeta(playlistHashs, hash) {

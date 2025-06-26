@@ -83,11 +83,11 @@ PlayerEngine::PlayerEngine(QObject *parent)
     , m_data(new PlayerEnginePrivate(this))
 {
     qCDebug(dmMusic) << "Initializing PlayerEngine";
-    connect(m_data->m_changePictureTimer, &QTimer::timeout, this, [ = ]() {
-        int curNum = m_data->m_playingCount % 4 + 1;
-        m_data->m_playingCount = curNum;
-        emit playPictureChanged(QString("music_play%1").arg(curNum));
-    });
+    // connect(m_data->m_changePictureTimer, &QTimer::timeout, this, [ = ]() {
+    //     int curNum = m_data->m_playingCount % 4 + 1;
+    //     m_data->m_playingCount = curNum;
+    //     emit playPictureChanged(QString("music_play%1").arg(curNum));
+    // });
     connect(m_data->m_player, &PlayerBase::metaChanged, this, &PlayerEngine::metaChanged);
     connect(m_data->m_player, &PlayerBase::timeChanged,
     this, [ = ](qint64 position) {
