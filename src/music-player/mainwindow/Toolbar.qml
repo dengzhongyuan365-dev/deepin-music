@@ -531,7 +531,7 @@ FloatingPanel {
                 currentTime = curMinute + ":" + curSecond
         }
         //positionChanged(curMinute * 60 + curSecond)
-        waveform.updatePosition(curMinute * 60 + curSecond)
+        // waveform.updatePosition(curMinute * 60 + curSecond)
     }
     function playbackStatusChange(status) {
         playStatus = status
@@ -543,7 +543,7 @@ FloatingPanel {
         pointList = null;
         pointList = []
         pointList = buffer
-        waveform.onAudioDataChanged()
+        // waveform.onAudioDataChanged()
         gc();
     }
     function onDeleteOneMeta(playlistHashs, hash) {

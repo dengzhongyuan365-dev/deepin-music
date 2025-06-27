@@ -366,16 +366,18 @@ void SdlPlayer::libvlc_audio_play_cb(void *data, const void *samples, unsigned c
         memcpy(curSamples, (char *)samples, size);
     }
 
+    qWarning(dmMusic) << "===========sdl _data size before append==============:" << sdlMediaPlayer->_data.size();
     QByteArray ba((char *)curSamples, size);
     QMutexLocker locker(&vlc_mutex);
     sdlMediaPlayer->_data.append(ba);
+    qWarning(dmMusic) << "===========sdl _data size after append==============:" << sdlMediaPlayer->_data.size();
 }
 
 void SdlPlayer::libvlc_audio_pause_cb(void *data, int64_t pts)
 {
     Q_UNUSED(data)
     Q_UNUSED(pts)
-    qCDebug(dmMusic) << "Audio pause callback triggered";
+    // qCDebug(dmMusic) << "Audio pause callback triggered";
     SDL_GetAudioStatus_function GetAudioStatus = (SDL_GetAudioStatus_function)VlcDynamicInstance::VlcFunctionInstance()->resolveSdlSymbol("SDL_GetAudioStatus");
     SDL_PauseAudio_function PauseAudio = (SDL_PauseAudio_function)VlcDynamicInstance::VlcFunctionInstance()->resolveSdlSymbol("SDL_PauseAudio");
     if (GetAudioStatus() != SDL_AUDIO_PAUSED && GetAudioStatus() != SDL_AUDIO_STOPPED) {
@@ -399,7 +401,7 @@ void SdlPlayer::libvlc_audio_resume_cb(void *data, int64_t pts)
 
 int SdlPlayer::libvlc_audio_setup_cb(void **data, char *format, unsigned *rate, unsigned *channels)
 {
-    qCDebug(dmMusic) << "Setting up audio - Format:" << format << "Rate:" << *rate << "Channels:" << *channels;
+    // qCDebug(dmMusic) << "Setting up audio - Format:" << format << "Rate:" << *rate << "Channels:" << *channels;
     
     SDL_PauseAudio_function PauseAudio = (SDL_PauseAudio_function)VlcDynamicInstance::VlcFunctionInstance()->resolveSdlSymbol("SDL_PauseAudio");
     SDL_Delay_function Delay = (SDL_Delay_function)VlcDynamicInstance::VlcFunctionInstance()->resolveSdlSymbol("SDL_Delay");
@@ -506,7 +508,7 @@ void SdlPlayer::SDL_audio_cbk(void *userdata, uint8_t *stream, int len)
     
     SdlPlayer *sdlMediaPlayer = static_cast<SdlPlayer *>(userdata);
     if (!sdlMediaPlayer) {
-        qCWarning(dmMusic) << "Invalid player instance in audio callback";
+        // qCWarning(dmMusic) << "Invalid player instance in audio callback";
         return;
     }
 
@@ -515,7 +517,7 @@ void SdlPlayer::SDL_audio_cbk(void *userdata, uint8_t *stream, int len)
     if (sdlMediaPlayer->_data.isEmpty()) {
         if (g_playbackStatus == PLAYBACK_STATUS_CHANGING) {
             g_playbackStatus = PLAYBACK_STATUS_RESTORE;
-            qCDebug(dmMusic) << "Playback status changed to restore due to empty buffer";
+            // qCDebug(dmMusic) << "Playback status changed to restore due to empty buffer";
         }
         return;
     }
@@ -544,12 +546,12 @@ void SdlPlayer::cleanMemCache()
 
 void SdlPlayer::readSinkInputPath()
 {
-    qCDebug(dmMusic) << "Reading sink input path";
+    // qCDebug(dmMusic) << "Reading sink input path";
     QVariant v = Utils::readDBusProperty("org.deepin.dde.Audio1", "/org/deepin/dde/Audio1",
                                              "org.deepin.dde.Audio1", "SinkInputs");
 
     if (!v.isValid()) {
-        qCWarning(dmMusic) << "Failed to read sink inputs from DBus";
+        // qCWarning(dmMusic) << "Failed to read sink inputs from DBus";
         return;
     }
 

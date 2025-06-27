@@ -69,13 +69,13 @@ Presenter::Presenter(const QString &unknownAlbumStr, const QString &unknownArtis
     
     qCDebug(dmMusic) << "Setting up signal connections";
     
-    connect(m_data->m_playerEngine, &PlayerEngine::volumeChanged, this, &Presenter::volumeChanged);
-    connect(m_data->m_playerEngine, &PlayerEngine::muteChanged, this, &Presenter::muteChanged);
+    // connect(m_data->m_playerEngine, &PlayerEngine::volumeChanged, this, &Presenter::volumeChanged);
+    // connect(m_data->m_playerEngine, &PlayerEngine::muteChanged, this, &Presenter::muteChanged);
     connect(m_data->m_playerEngine, &PlayerEngine::metaChanged, this, [ = ]() {
         qCDebug(dmMusic) << "Meta changed, updating audio buffer and settings";
         m_data->m_audioAnalysis->parseAudioBuffer(m_data->m_playerEngine->getMediaMeta());
         m_data->m_dataManager->setValueToSettings("base.play.last_meta", m_data->m_playerEngine->getMediaMeta().hash, true);
-        emit metaChanged();
+        // emit metaChanged();
     });
     connect(m_data->m_playerEngine, &PlayerEngine::playPictureChanged, this, &Presenter::updatePlayingIcon);
     connect(m_data->m_playerEngine, &PlayerEngine::positionChanged, this, &Presenter::positionChanged);
@@ -88,7 +88,7 @@ Presenter::Presenter(const QString &unknownAlbumStr, const QString &unknownArtis
             qCDebug(dmMusic) << "Suspending audio recorder";
             m_data->m_audioAnalysis->suspendRecorder();
         }
-        emit playbackStatusChanged(status);
+        // emit playbackStatusChanged(status);
     });
     connect(m_data->m_playerEngine, &PlayerEngine::sendCdaStatus, this, [ = ](int state) {
         qCDebug(dmMusic) << "CD audio status changed to:" << state;
@@ -121,7 +121,7 @@ Presenter::Presenter(const QString &unknownAlbumStr, const QString &unknownArtis
         for (int i = 0; i < buffer.size(); i++) {
             list.append(buffer[i]);
         }
-        emit audioBuffer(list, hash);
+        // emit audioBuffer(list, hash);
     });
 
     connect(m_data->m_dataManager, &DataManager::signalCurrentPlaylistSChanged, this, &Presenter::currentPlaylistSChanged);
@@ -133,7 +133,7 @@ Presenter::Presenter(const QString &unknownAlbumStr, const QString &unknownArtis
         if (playlistHashs.contains("play") && addToPlay) {
             m_data->m_playerEngine->addMetasToPlayList(QList<DMusic::MediaMeta>() << meta);
         }
-        emit addOneMeta(playlistHashs, Utils::metaToVariantMap(meta));
+        // emit addOneMeta(playlistHashs, Utils::metaToVariantMap(meta));
     });
     connect(m_data->m_dataManager, &DataManager::signalImportFinished, this, [ = ](QStringList playlistHashs, int failCount, int sucessCount, int existCount, QString mediaHash) {
         // 自动播放
