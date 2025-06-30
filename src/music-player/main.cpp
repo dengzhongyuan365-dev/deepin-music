@@ -138,8 +138,8 @@ int main(int argc, char *argv[])
     qApp->setApplicationDisplayName(DmGlobal::getAppName());
 
     QQmlApplicationEngine engine;
-    // 请在此处注册需要导入到QML中的C++类型
-    // 例如： engine.rootContext()->setContextProperty("Utils", new Utils);
+    // // 请在此处注册需要导入到QML中的C++类型
+    // // 例如： engine.rootContext()->setContextProperty("Utils", new Utils);
     presenter.reset(new Presenter(QObject::tr("Unknown album"), QObject::tr("Unknown artist"), app));
 
     EventsFilter eventsFilter(presenter.data());
@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
     if (!OpenFilePaths.isEmpty()) {
         presenter->importMetas(OpenFilePaths, "play", true);
     }
-
+    presenter->play();
     QObject::connect(&engine, &QQmlApplicationEngine::quit, presenter.data(), &Presenter::saveDataToDB);
 
     // 捕获强制退出信号，保存数据到数据库

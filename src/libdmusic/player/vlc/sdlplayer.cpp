@@ -366,11 +366,9 @@ void SdlPlayer::libvlc_audio_play_cb(void *data, const void *samples, unsigned c
         memcpy(curSamples, (char *)samples, size);
     }
 
-    qWarning(dmMusic) << "===========sdl _data size before append==============:" << sdlMediaPlayer->_data.size();
     QByteArray ba((char *)curSamples, size);
     QMutexLocker locker(&vlc_mutex);
     sdlMediaPlayer->_data.append(ba);
-    qWarning(dmMusic) << "===========sdl _data size after append==============:" << sdlMediaPlayer->_data.size();
 }
 
 void SdlPlayer::libvlc_audio_pause_cb(void *data, int64_t pts)

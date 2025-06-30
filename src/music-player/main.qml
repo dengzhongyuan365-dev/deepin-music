@@ -24,7 +24,7 @@ ApplicationWindow {
     width: windowMiniWidth
     height: windowMiniHeight
     DWindow.enabled: true
-    DWindow.alphaBufferSize: 8
+    // DWindow.alphaBufferSize: 8
     flags: Qt.Window | Qt.WindowMinMaxButtonsHint | Qt.WindowCloseButtonHint | Qt.WindowTitleHint
     
     // 保留titlebar
@@ -60,21 +60,21 @@ ApplicationWindow {
     }
 
     // 中间区域留空
-    Rectangle {
+    /*Rectangle {
         anchors.fill: parent
         anchors.topMargin: 50
         anchors.bottomMargin: 90
         color: "transparent"
-    }
+    }*/
     
     // 保留Toolbar
-    Toolbar {
+    /*Toolbar {
         id: toolbox
         width: parent.width
         z: 10
-    }
+    }*/
     
-    Component.onCompleted: {
+    /*Component.onCompleted: {
         console.log("==== 简化版音乐播放器启动：仅加载Toolbar和Titlebar ====")
-    }
+    }*/
 }
