@@ -29,6 +29,11 @@
 #include "util/eventsfilter.h"
 #include "util/shortcut.h"
 #include "util/dbusadpator.h"
+<<<<<<< Updated upstream
+=======
+#include "util/log.h"
+#include "util/imageprovider.h"
+>>>>>>> Stashed changes
 
 DWIDGET_USE_NAMESPACE;
 DCORE_USE_NAMESPACE;
@@ -141,6 +146,9 @@ int main(int argc, char *argv[])
     // // 请在此处注册需要导入到QML中的C++类型
     // // 例如： engine.rootContext()->setContextProperty("Utils", new Utils);
     presenter.reset(new Presenter(QObject::tr("Unknown album"), QObject::tr("Unknown artist"), app));
+
+    // 注册音乐图片提供器
+    engine.addImageProvider("musiccover", new MusicImageProvider);
 
     EventsFilter eventsFilter(presenter.data());
     Shortcut shortcut(presenter.data());

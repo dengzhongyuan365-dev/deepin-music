@@ -81,6 +81,7 @@ FloatingPanel {
             color: songTitle.length === 0 ? "#d7d7d7" : "transparent"
             enabled: songTitle.length === 0 ? false : true
 
+<<<<<<< Updated upstream
             // Image {
             //     id: img
             //     width: songTitle.length === 0 ? 24 : parent.width
@@ -94,6 +95,48 @@ FloatingPanel {
                 anchors.fill: parent
                 radius: 8
                 visible: songTitle.length === 0 ? false : true
+=======
+            // 无音乐时的占位图标
+            Image {
+                id: img
+                width: songTitle.length === 0 ? 24 : parent.width
+                height: songTitle.length === 0 ? 24 : parent.height
+                anchors.centerIn: parent
+                source: songTitle.length === 0 ? "qrc:/dsg/img/no_music.svg" : 
+                        (imgPath.startsWith("qrc:") ? imgPath : "image://musiccover/" + encodeURIComponent(imgPath.replace("file:///", "")))
+                visible: songTitle.length === 0 ? true : false
+                cache: false
+                fillMode: Image.PreserveAspectCrop
+                smooth: true
+                antialiasing: true
+                
+                onStatusChanged: {
+                    if (status === Image.Error) {
+                        source = "qrc:/dsg/img/no_music.svg"
+                    }
+                }
+            }
+            
+            // 音乐封面图片
+            Image {
+                id: coverImg
+                width: parent.width
+                height: parent.height
+                anchors.centerIn: parent
+                source: songTitle.length === 0 ? "qrc:/dsg/img/no_music.svg" : 
+                        (imgPath.startsWith("qrc:") ? imgPath : "image://musiccover/" + encodeURIComponent(imgPath.replace("file:///", "")))
+                visible: songTitle.length === 0 ? false : true
+                cache: false
+                fillMode: Image.PreserveAspectCrop
+                smooth: true
+                antialiasing: true
+                
+                onStatusChanged: {
+                    if (status === Image.Error) {
+                        source = "qrc:/dsg/img/no_music.svg"
+                    }
+                }
+>>>>>>> Stashed changes
             }
             // OpacityMask {
             //     anchors.fill: parent

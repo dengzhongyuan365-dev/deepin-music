@@ -10,15 +10,16 @@ import org.deepin.dtk 1.0
 
 Rectangle {
     id: control
-    property alias source: image.source
+    property string source: ""  // 接收外部传入的路径
     property bool m_isPlaying: (globalVariant.curPlayingStatus === DmGlobal.Playing) ? true : false
     signal clicked
     property string pageHash: ""
     property bool isCurPlay: false
     property bool isCurHover: false
     property var curMediaData
-//    implicitWidth: childrenRect.width
-//    implicitHeight: childrenRect.height
+    
+    // 新增：原始文件路径属性
+    property string filePath: ""
 
     width: 40; height: 40
     color: "transparent"
@@ -29,6 +30,38 @@ Rectangle {
         visible: false
         smooth: true
         antialiasing: true
+<<<<<<< Updated upstream
+=======
+        cache: false
+        
+        // 关键修改：自动将file://路径转换为ImageProvider调用
+        source: {
+            if (control.source && control.source !== "") {
+                // 如果是qrc资源，直接使用
+                if (control.source.startsWith("qrc:")) {
+                    return control.source;
+                }
+                // 如果是file://路径，转换为ImageProvider调用
+                else if (control.source.startsWith("file://")) {
+                    var cleanPath = control.source.replace("file:///", "");
+                    return "image://musiccover/" + encodeURIComponent(cleanPath);
+                }
+                // 如果是普通路径，也转换为ImageProvider调用
+                else {
+                    return "image://musiccover/" + encodeURIComponent(control.source);
+                }
+            }
+            return "qrc:/dsg/img/no_music.svg";
+        }
+        
+        onStatusChanged: {
+            if (status === Image.Error) {
+                // 加载失败时使用默认图片
+                source = "qrc:/dsg/img/no_music.svg";
+            }
+        }
+        
+>>>>>>> Stashed changes
         Rectangle {
             id: curMask
             anchors.fill: parent
