@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+// SPDX-FileCopyrightText: 2023 - 2026 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -26,7 +26,7 @@ TitleBar {
     id: titleBar
     icon.name: globalVariant.appIconName
     icon.opacity: opat
-    hoverEnabled: false
+    hoverEnabled: true
     ActionButton {
         icon.name: "go_down"
         icon.width: 12
